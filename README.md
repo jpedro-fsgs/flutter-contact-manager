@@ -1,16 +1,42 @@
-# agenda
+# Aplicativo de Gerenciamento de Contatos
 
-A new Flutter project.
+Aplicativo para dispositivos móveis utilizando **Flutter** e o banco de dados local **SQLite (via sqflite)**, implementando as operações de CRUD (Create, Read, Update e Delete) para gerenciar contatos pessoais.
 
-## Getting Started
+## 📋 Funcionalidades
 
-This project is a starting point for a Flutter application.
+1. **Tela de Cadastro**:
+   - Formulário para adicionar um novo contato, contendo:
+     - Nome do contato.
+     - Telefone.
+     - E-mail.
+   - Botão para salvar os dados no banco de dados.
 
-A few resources to get you started if this is your first Flutter project:
+2. **Tela de Listagem**:
+   - Exibição de todos os contatos cadastrados.
+   - Permite selecionar um contato para:
+     - Visualizar os detalhes.
+     - Editar informações.
+     - Excluir o contato.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+3. **Tela de Edição**:
+   - Edição dos dados do contato selecionado.
+   - Salvamento das alterações no banco de dados.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+4. **Funcionalidade de Exclusão**:
+   - Confirmação antes de remover permanentemente o contato.
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Flutter**: Framework de desenvolvimento multiplataforma.
+- **sqflite**: Biblioteca para integração com SQLite em Flutter.
+
+<!-- ## 🎨 Capturas de Tela
+
+- **Tela de Cadastro**:
+![Tela de Cadastro](screenshots/cadastro.png)
+
+- **Tela de Listagem**:
+![Tela de Listagem](screenshots/listagem.png)
+
+- **Tela de Edição**:
+![Tela de Edição](screenshots/edicao.png) -->
