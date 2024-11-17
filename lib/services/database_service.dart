@@ -39,9 +39,9 @@ class DatabaseService {
 
   void addContact(String nome, String? numero, String? email) async{
     final db = await database;
-    await db.insert(_contatosTableName, {
-      _nomeColumnName: nome,
-      _numeroColumnName: numero,
+    await db.insert(_contactsTableName, {
+      _nameColumnName: name,
+      _numberColumnName: number,
       _emailColumnName: email
     });
   }

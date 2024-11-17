@@ -33,18 +33,11 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Text("oi")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showDialog(context: context, builder: (_) => AlertDialog(
-            title: Text("Add Contact"),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(),
-                TextField(),
-                TextField(),
-                MaterialButton(onPressed: () {}, child: const Icon(Icons.add))
-              ],
-            ),
-          ));
+          showDialog(
+              context: context,
+              builder: (_) => AddContactDialog(
+                    databaseService: _databaseService,
+                  ));
         },
         tooltip: 'Add',
         child: const Icon(Icons.add),
