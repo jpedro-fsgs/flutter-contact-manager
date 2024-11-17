@@ -1,3 +1,6 @@
+import 'package:agenda/models/contact.dart';
+import 'package:agenda/utils/contacts_list.dart';
+import 'package:agenda/utils/add_contact_dialog.dart';
 import 'package:agenda/services/database_service.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +25,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final DatabaseService _databaseService = DatabaseService.instance;
 
+  List<Contact> contacts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _initStorage();
+  }
+
+  void _initStorage() async {
+    _databaseService.getContacts().then((data) => setState(() {
+          contacts = data;
+        }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,8 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const Center(
-          child: Text("oi")),
+      body: ContactsList(contacts: contacts),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
