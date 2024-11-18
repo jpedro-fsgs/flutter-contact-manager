@@ -25,18 +25,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final DatabaseService _databaseService = DatabaseService.instance;
 
-  List<Contact> contacts = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _initStorage();
+  void addContact(String name, String? number, String? email){
+    setState(() {
+      _databaseService.addContact(name, number, email);
+    });
   }
 
-  void _initStorage() async {
-    _databaseService.getContacts().then((data) => setState(() {
-          contacts = data;
-        }));
+  Future<List<Contact>> getContacts() async{
+    List<Contact> contacts = await _databaseService.getContacts();
+    contacts.sort((a, b) => a.name.compareTo(b.name));
+    return contacts;
   }
 
   @override
@@ -46,13 +44,13 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: ContactsList(contacts: contacts),
+      body: ContactsList(getContacts: getContacts,),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
               context: context,
               builder: (_) => AddContactDialog(
-                    databaseService: _databaseService,
+                    addContact: addContact,
                   ));
         },
         tooltip: 'Add',

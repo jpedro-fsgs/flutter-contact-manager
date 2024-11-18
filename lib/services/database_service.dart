@@ -38,15 +38,9 @@ class DatabaseService {
     return database;
   }
 
-  void debug() async {
-    final db = await database;
-    final List<Map<String, dynamic>> data = await db.query(_contactsTableName);
-    for (var row in data) {
-      print(row);
-    }
-  }
-
   Future<List<Contact>> getContacts() async {
+    // await Future.delayed(const Duration(seconds: 1));
+    // throw Exception('Erro');
     final db = await database;
     final List<Map<String, dynamic>> data = await db.query(_contactsTableName);
     return data

@@ -1,10 +1,9 @@
-import 'package:agenda/services/database_service.dart';
 import 'package:flutter/material.dart';
 
 class AddContactDialog extends StatefulWidget {
-  const AddContactDialog({super.key, required this.databaseService});
+  const AddContactDialog({super.key, required this.addContact});
 
-  final DatabaseService databaseService;
+  final void Function(String name, String? number, String? email) addContact;
 
   @override
   State<AddContactDialog> createState() => _AddContactDialogState();
@@ -24,16 +23,12 @@ class _AddContactDialogState extends State<AddContactDialog> {
     if (name == "") return;
     if (number == "") number = null;
     if (email == "") email = null;
-    
-    widget.databaseService.addContact(name, number, email);
 
-    // setState(() {
-    //   // _nameController.clear();
-    //   // _numberController.clear();
-    //   // _emailController.clear();
-    // });
+    setState(() {
+      widget.addContact(name, number, email);
+    });
 
-    Navigator.pop(context);
+    Navigator.pop(context, true);
   }
 
   @override
