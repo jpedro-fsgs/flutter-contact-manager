@@ -40,3 +40,51 @@ Aplicativo para dispositivos móveis utilizando **Flutter** e o banco de dados l
 
 - **Tela de Edição**:
 ![Tela de Edição](screenshots/edicao.png) -->
+
+---
+
+### **Checklist do Aplicativo de Gerenciamento de Contatos**
+
+#### **Funcionalidades Básicas**
+- [x]  Criar página para **adicionar contato**:
+  - [x] Nome completo (obrigatório)
+  - [x] Telefone (obrigatório)
+  - [x] Email
+  - [ ] Imagem de perfil
+- [ ] Criar funcionalidade para **editar contato**:
+  - [ ] Permitir alteração de nome, telefone, email e imagem.
+- [ ] Criar funcionalidade para **excluir contato** com confirmação:
+  - [ ] Modal ou diálogo para confirmar exclusão.
+- [x] Implementar **lista de contatos**:
+  - [x] Mostrar contatos ordenados por nome (padrão).
+  - [ ] Opção para ordenar por: Nome, Telefone ou Data de Criação.
+
+#### **Melhorias de Experiência do Usuário**
+- [ ] Implementar busca na lista de contatos (por nome ou telefone).
+- [ ] Adicionar imagem ao contato:
+  - [ ] Opção de escolher imagem da galeria ou tirar foto.
+  - [ ] Exibir uma imagem padrão para contatos sem foto.
+- [ ] Validar campos ao adicionar ou editar contatos:
+  - [ ] Nome e telefone obrigatórios.
+  - [ ] Verificar formato de email válido.
+  - [ ] Tamanho máximo da imagem.
+
+#### **Design e Interface**
+- [ ] Criar layout responsivo para diferentes tamanhos de tela.
+- [ ] Adicionar feedback visual:
+  - [ ] Mensagens de sucesso (ex.: "Contato adicionado com sucesso").
+  - [ ] Mensagens de erro (ex.: "Erro ao salvar o contato").
+- [ ] Adicionar ícones para ações (editar, excluir, adicionar).
+
+#### **Tarefas Técnicas**
+- [x] Criar banco de dados local com **sqflite**:
+  - [ ] Tabela para armazenar contatos com campos: ID, Nome, Telefone, Email, Imagem, Data de Criação.
+- [ ] Implementar funções CRUD (Create, Read, Update, Delete).
+- [ ] Testar persistência de dados ao reiniciar o app.
+- [ ] Testar performance com uma lista grande de contatos.
+
+#### **Testes**
+- [ ] Testar funcionalidade de adicionar contato.
+- [ ] Testar edição e exclusão de contatos.
+- [ ] Testar ordenação e busca na lista.
+- [ ] Testar validação de campos.
