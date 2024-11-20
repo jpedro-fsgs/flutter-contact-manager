@@ -1,17 +1,18 @@
 import 'package:agenda/models/contact.dart';
-import 'package:agenda/utils/contact_page.dart';
+import 'package:agenda/pages/contact_page.dart';
 import 'package:flutter/material.dart';
 
 class ContactsList extends StatelessWidget {
-  const ContactsList({super.key, required this.getContacts});
+  const ContactsList({super.key, required this.getContacts, required this.removeContact});
 
   final Future<List<Contact>> Function() getContacts;
+  final void Function(int) removeContact;
 
   void openContactPage(BuildContext context, Contact contact) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ContactPage(contact: contact),
+        builder: (context) => ContactPage(contact: contact, removeContact: removeContact,),
       ),
     );
   }

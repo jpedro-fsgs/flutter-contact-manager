@@ -60,4 +60,11 @@ class DatabaseService {
       _emailColumnName: email
     });
   }
+
+  void removeContact(int id) async {
+    final db = await database;
+    await db.delete(_contactsTableName,
+        where: '$_idColumnName = ?', whereArgs: [id]);
+  }
+
 }

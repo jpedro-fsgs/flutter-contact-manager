@@ -2,9 +2,12 @@ import 'package:agenda/models/contact.dart';
 import 'package:flutter/material.dart';
 
 class ContactPage extends StatelessWidget {
-  const ContactPage({super.key, required this.contact});
+  const ContactPage(
+      {super.key, required this.removeContact, required this.contact});
 
   final Contact contact;
+
+  final void Function(int id) removeContact;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,14 @@ class ContactPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(contact.name),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        actions: const [Icon(Icons.edit)],
+        actions: [
+          IconButton(
+              onPressed: () {
+                removeContact(contact.id);
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.delete))
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -68,17 +78,18 @@ class ContactPage extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              contact.email != null ?
-              ListTile(
-                  tileColor: Theme.of(context).colorScheme.surfaceContainer,
-                  leading: Icon(
-                    Icons.email,
-                    color: primaryColor,
-                  ),
-                  subtitle: const Text("Email"),
-                  subtitleTextStyle: contactInfoSubtitleStyle,
-                  title: Text(contact.email ?? ""),
-                  titleTextStyle: contactInfoTitleStyle) : const SizedBox.shrink()
+              contact.email != null
+                  ? ListTile(
+                      tileColor: Theme.of(context).colorScheme.surfaceContainer,
+                      leading: Icon(
+                        Icons.email,
+                        color: primaryColor,
+                      ),
+                      subtitle: const Text("Email"),
+                      subtitleTextStyle: contactInfoSubtitleStyle,
+                      title: Text(contact.email ?? ""),
+                      titleTextStyle: contactInfoTitleStyle)
+                  : const SizedBox.shrink()
             ],
           ),
         ),
