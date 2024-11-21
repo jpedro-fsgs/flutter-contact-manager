@@ -39,8 +39,6 @@ class DatabaseService {
   }
 
   Future<List<Contact>> getContacts() async {
-    // await Future.delayed(const Duration(seconds: 1));
-    // throw Exception('Erro');
     final db = await database;
     final List<Map<String, dynamic>> data = await db.query(_contactsTableName);
     return data
@@ -52,7 +50,7 @@ class DatabaseService {
         .toList();
   }
 
-  void addContact(String name, String? number, String? email) async {
+  Future<void> addContact(String name, String? number, String? email) async {
     final db = await database;
     await db.insert(_contactsTableName, {
       _nameColumnName: name,
@@ -61,9 +59,8 @@ class DatabaseService {
     });
   }
 
-  void updateContact(int id, String name, String? number, String? email) async {
+  Future<void>  updateContact(int id, String name, String? number, String? email) async {
     final db = await database;
-
     await db.update(
         _contactsTableName,
         {
@@ -75,7 +72,7 @@ class DatabaseService {
         whereArgs: [id]);
   }
 
-  void removeContact(int id) async {
+  Future<void> removeContact(int id) async {
     final db = await database;
     await db.delete(_contactsTableName,
         where: '$_idColumnName = ?', whereArgs: [id]);

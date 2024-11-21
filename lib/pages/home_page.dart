@@ -16,23 +16,58 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final DatabaseService _databaseService = DatabaseService.instance;
 
-  void addContact(String name, String? number, String? email) {
-    setState(() {
-      _databaseService.addContact(name, number, email);
-    });
-  }
-  
-  void editContact(Contact contact, String name, String? number, String? email) {
-    setState(() {
-      _databaseService.updateContact(contact.id, name, number, email);
-      
-    });
+  void showInfo(String mensagem, {IconData? icon, Color? iconColor}) {
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            icon != null ? Icon(icon, color: iconColor) : const SizedBox.shrink(),
+            const SizedBox(width: 8) ,
+            Expanded(child: Text(mensagem)),
+          ],
+        ),
+      ),
+    );
   }
 
-  void removeContact(int id) {
-    setState(() {
-      _databaseService.removeContact(id);
-    });
+  void addContact(String name, String? number, String? email) async {
+    try {
+      await _databaseService.addContact(name, number, email);
+      setState(() {});
+      showInfo('Contato salvo com sucesso!',
+          icon: Icons.check_circle, iconColor: Colors.green);
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      showInfo('Não foi possível cadastrar o contato.',
+          icon: Icons.error, iconColor: Colors.red);
+    }
+  }
+
+  void editContact(
+      Contact contact, String name, String? number, String? email) async {
+    try {
+      await _databaseService.updateContact(contact.id, name, number, email);
+      setState(() {});
+      showInfo('Contato atualizado com sucesso!',
+          icon: Icons.check_circle, iconColor: Colors.green);
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      showInfo('Não foi possível atualizar o contato.',
+          icon: Icons.error, iconColor: Colors.red);
+    }
+  }
+
+  void removeContact(int id) async {
+    try {
+      await _databaseService.removeContact(id);
+      setState(() {});
+      showInfo('Contato removido com sucesso.');
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      showInfo('Não foi possível remover o contato.',
+          icon: Icons.error, iconColor: Colors.red);
+    }
   }
 
   Future<List<Contact>> getContacts() async {

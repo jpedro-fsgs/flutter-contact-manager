@@ -33,22 +33,16 @@ class EditContactPageState extends State<EditContactPage> {
   void onEdit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      debugPrint(_email);
-      widget.editContact(
-          widget.contact, _name, _number, _email != "" ? _email : null);
+        widget.editContact(
+            widget.contact, _name, _number, _email != "" ? _email : null);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Contato atualizado com sucesso!'),
-        ),
-      );
-      Navigator.pop(
-          context,
-          Contact(
-              id: widget.contact.id,
-              name: _name,
-              number: _number,
-              email: _email != "" ? _email : null));
+        Navigator.pop(
+            context,
+            Contact(
+                id: widget.contact.id,
+                name: _name,
+                number: _number,
+                email: _email != "" ? _email : null));
     }
   }
 

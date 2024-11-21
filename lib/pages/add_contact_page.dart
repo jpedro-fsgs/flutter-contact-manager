@@ -21,11 +21,6 @@ class AddContactPageState extends State<AddContactPage> {
 
       widget.addContact(_name, _phone, _email != "" ? _email : null);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Contato salvo com sucesso!'),
-        ),
-      );
       Navigator.pop(context);
     }
   }
