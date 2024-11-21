@@ -71,8 +71,8 @@ Aplicativo para dispositivos móveis utilizando **Flutter** e o banco de dados l
   - [ ] Tamanho máximo da imagem.
 
 #### **Design e Interface**
-- [ ] Criar layout responsivo para diferentes tamanhos de tela.
-- [ ] Adicionar feedback visual:
+- [x] Criar layout responsivo para diferentes tamanhos de tela.
+- [x] Adicionar feedback visual:
   - [x] Mensagens de sucesso (ex.: "Contato adicionado com sucesso").
   - [ ] Mensagens de erro (ex.: "Erro ao salvar o contato").
 - [x] Adicionar ícones para ações (editar, excluir, adicionar).

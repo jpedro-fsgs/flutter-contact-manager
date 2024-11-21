@@ -62,11 +62,7 @@ class _ContactPageState extends State<ContactPage> {
             TextButton(
                 onPressed: () {
                   widget.removeContact(_contact.id);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Contato "${_contact.name}" excluído!'),
-                    ),
-                  );
+                  
                   Navigator.pop(context);
                   Navigator.pop(context);
                 },
@@ -114,60 +110,62 @@ class _ContactPageState extends State<ContactPage> {
                   ]),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 16,
-              ),
-              CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                minRadius: 56.0,
-                child: Text(
-                  _contact.name[0],
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.primaryContainer,
-                      fontSize: 56.0),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 16,
                 ),
-              ),
-              Text(
-                _contact.name,
-                style: nameTitleStyle,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              _contact.number != null
-                  ? ListTile(
-                      tileColor: Theme.of(context).colorScheme.surfaceContainer,
-                      leading: Icon(
-                        Icons.phone,
-                        color: primaryColor,
-                      ),
-                      subtitle: const Text("Número"),
-                      subtitleTextStyle: contactInfoSubtitleStyle,
-                      title: Text(_contact.number ?? ""),
-                      titleTextStyle: contactInfoTitleStyle)
-                  : const SizedBox.shrink(),
-              const SizedBox(
-                height: 5,
-              ),
-              _contact.email != null
-                  ? ListTile(
-                      tileColor: Theme.of(context).colorScheme.surfaceContainer,
-                      leading: Icon(
-                        Icons.email,
-                        color: primaryColor,
-                      ),
-                      subtitle: const Text("Email"),
-                      subtitleTextStyle: contactInfoSubtitleStyle,
-                      title: Text(_contact.email ?? ""),
-                      titleTextStyle: contactInfoTitleStyle)
-                  : const SizedBox.shrink()
-            ],
+                CircleAvatar(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  minRadius: 56.0,
+                  child: Text(
+                    _contact.name[0],
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.primaryContainer,
+                        fontSize: 56.0),
+                  ),
+                ),
+                Text(
+                  _contact.name,
+                  style: nameTitleStyle,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                _contact.number != null
+                    ? ListTile(
+                        tileColor: Theme.of(context).colorScheme.surfaceContainer,
+                        leading: Icon(
+                          Icons.phone,
+                          color: primaryColor,
+                        ),
+                        subtitle: const Text("Número"),
+                        subtitleTextStyle: contactInfoSubtitleStyle,
+                        title: Text(_contact.number ?? ""),
+                        titleTextStyle: contactInfoTitleStyle)
+                    : const SizedBox.shrink(),
+                const SizedBox(
+                  height: 5,
+                ),
+                _contact.email != null
+                    ? ListTile(
+                        tileColor: Theme.of(context).colorScheme.surfaceContainer,
+                        leading: Icon(
+                          Icons.email,
+                          color: primaryColor,
+                        ),
+                        subtitle: const Text("Email"),
+                        subtitleTextStyle: contactInfoSubtitleStyle,
+                        title: Text(_contact.email ?? ""),
+                        titleTextStyle: contactInfoTitleStyle)
+                    : const SizedBox.shrink()
+              ],
+            ),
           ),
         ),
       ),
