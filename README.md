@@ -53,13 +53,14 @@ Aplicativo para dispositivos móveis utilizando **Flutter** e o banco de dados l
   - [ ] Imagem de perfil
 - [ ] Criar funcionalidade para **editar contato**:
   - [ ] Permitir alteração de nome, telefone, email e imagem.
-- [ ] Criar funcionalidade para **excluir contato** com confirmação:
-  - [ ] Modal ou diálogo para confirmar exclusão.
+- [x] Criar funcionalidade para **excluir contato** com confirmação:
+  - [x] Modal ou diálogo para confirmar exclusão.
 - [x] Implementar **lista de contatos**:
   - [x] Mostrar contatos ordenados por nome (padrão).
   - [ ] Opção para ordenar por: Nome, Telefone ou Data de Criação.
 
 #### **Melhorias de Experiência do Usuário**
+- [ ] Implementar internacionalização.
 - [ ] Implementar busca na lista de contatos (por nome ou telefone).
 - [ ] Adicionar imagem ao contato:
   - [ ] Opção de escolher imagem da galeria ou tirar foto.
@@ -84,7 +85,7 @@ Aplicativo para dispositivos móveis utilizando **Flutter** e o banco de dados l
 - [ ] Testar performance com uma lista grande de contatos.
 
 #### **Testes**
-- [ ] Testar funcionalidade de adicionar contato.
+- [x] Testar funcionalidade de adicionar contato.
 - [ ] Testar edição e exclusão de contatos.
 - [ ] Testar ordenação e busca na lista.
 - [ ] Testar validação de campos.

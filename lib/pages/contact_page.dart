@@ -24,17 +24,56 @@ class ContactPage extends StatelessWidget {
     TextStyle contactInfoSubtitleStyle = TextStyle(
         color: Theme.of(context).colorScheme.secondary, fontSize: 16.0);
 
+    void onRemove() {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Excluir ${contact.name}?"),
+            content: Text(
+                'Deseja excluir permanentemente o contato "${contact.name}"?'),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text("Cancelar")),
+              TextButton(
+                  onPressed: () {
+                    removeContact(contact.id);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Contato "${contact.name}" excluído!'),
+                      ),
+                    );
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Confirmar"))
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(contact.name),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
-          IconButton(
-              onPressed: () {
-                removeContact(contact.id);
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.delete))
+          PopupMenuButton(
+              itemBuilder: (context) => [
+                    PopupMenuItem(
+                        onTap: () => print("editar"),
+                        child: const ListTile(
+                          title: Text("Editar"),
+                          leading: Icon(Icons.edit),
+                        )),
+                    PopupMenuItem(
+                        onTap: onRemove,
+                        child: const ListTile(
+                          title: Text("Excluir"),
+                          leading: Icon(Icons.delete),
+                        )),
+                  ]),
         ],
       ),
       body: Padding(
