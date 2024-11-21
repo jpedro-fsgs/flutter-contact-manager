@@ -4,7 +4,7 @@ class AddContactPage extends StatefulWidget {
   const AddContactPage({super.key, required this.addContact});
 
   final void Function(String name, String? number, String? email) addContact;
-  
+
   @override
   AddContactPageState createState() => AddContactPageState();
 }
@@ -15,11 +15,27 @@ class AddContactPageState extends State<AddContactPage> {
   String? _phone;
   String? _email;
 
+  void onAdd() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
+      widget.addContact(_name, _phone, _email != "" ? _email : null);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Contato salvo com sucesso!'),
+        ),
+      );
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Adicionar Contato'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -55,6 +71,10 @@ class AddContactPageState extends State<AddContactPage> {
                     if (value == null || value.isEmpty) {
                       return 'O telefone é obrigatório.';
                     }
+                    final phoneRegex = RegExp(r"^\+?[0-9\s\-()]{7,15}$");
+                    if (!phoneRegex.hasMatch(value)) {
+                      return 'Insira um telefone válido.';
+                    }
                     return null;
                   },
                   onSaved: (value) {
@@ -83,25 +103,13 @@ class AddContactPageState extends State<AddContactPage> {
                   },
                 ),
                 const SizedBox(height: 16),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    // Função para salvar o contato
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
-
-                      widget.addContact(_name, _phone, _email);
-
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Contato salvo com sucesso!'),
-                        ),
-                      );
-                      Navigator.pop(context); // Volta para a página anterior
-                    }
-                  },
-                  icon: const Icon(Icons.save),
-                  label: const Text('Salvar'),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton.icon(
+                    onPressed: onAdd,
+                    icon: const Icon(Icons.save),
+                    label: const Text('Salvar'),
+                  ),
                 ),
               ],
             ),
