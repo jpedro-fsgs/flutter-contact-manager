@@ -1,13 +1,19 @@
 import 'package:agenda/models/contact.dart';
+import 'package:agenda/pages/edit_contact_page.dart';
 import 'package:flutter/material.dart';
 
 class ContactPage extends StatelessWidget {
   const ContactPage(
-      {super.key, required this.removeContact, required this.contact});
+      {super.key,
+      required this.removeContact,
+      required this.editContact,
+      required this.contact});
 
   final Contact contact;
 
   final void Function(int id) removeContact;
+
+  final void Function(Contact, String, String?, String?) editContact;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +29,18 @@ class ContactPage extends StatelessWidget {
 
     TextStyle contactInfoSubtitleStyle = TextStyle(
         color: Theme.of(context).colorScheme.secondary, fontSize: 16.0);
+
+    void onEdit() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => EditContactPage(
+            contact: contact,
+            editContact: editContact,
+          ),
+        ),
+      );
+    }
 
     void onRemove() {
       showDialog(
@@ -62,7 +80,7 @@ class ContactPage extends StatelessWidget {
           PopupMenuButton(
               itemBuilder: (context) => [
                     PopupMenuItem(
-                        onTap: () => print("editar"),
+                        onTap: onEdit,
                         child: const ListTile(
                           title: Text("Editar"),
                           leading: Icon(Icons.edit),

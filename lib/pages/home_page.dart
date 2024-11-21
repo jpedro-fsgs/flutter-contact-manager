@@ -21,6 +21,12 @@ class _MyHomePageState extends State<MyHomePage> {
       _databaseService.addContact(name, number, email);
     });
   }
+  
+  void editContact(Contact contact, String name, String? number, String? email) {
+    setState(() {
+      _databaseService.updateContact(contact.id, name, number, email);
+    });
+  }
 
   void removeContact(int id) {
     setState(() {
@@ -43,6 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ContactsList(
         getContacts: getContacts,
+        editContact: editContact,
         removeContact: removeContact,
       ),
       floatingActionButton: FloatingActionButton(

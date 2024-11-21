@@ -61,10 +61,23 @@ class DatabaseService {
     });
   }
 
+  void updateContact(int id, String name, String? number, String? email) async {
+    final db = await database;
+
+    await db.update(
+        _contactsTableName,
+        {
+          _nameColumnName: name,
+          _numberColumnName: number,
+          _emailColumnName: email
+        },
+        where: '$_idColumnName = ?',
+        whereArgs: [id]);
+  }
+
   void removeContact(int id) async {
     final db = await database;
     await db.delete(_contactsTableName,
         where: '$_idColumnName = ?', whereArgs: [id]);
   }
-
 }
