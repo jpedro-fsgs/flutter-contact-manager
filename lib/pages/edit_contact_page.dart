@@ -9,7 +9,8 @@ class EditContactPage extends StatefulWidget {
   });
 
   final Contact contact;
-  final void Function(Contact contact, String name, String? number, String? email) editContact;
+  final void Function(
+      Contact contact, String name, String? number, String? email) editContact;
 
   @override
   EditContactPageState createState() => EditContactPageState();
@@ -18,29 +19,36 @@ class EditContactPage extends StatefulWidget {
 class EditContactPageState extends State<EditContactPage> {
   final _formKey = GlobalKey<FormState>();
   late String _name;
-  late String? _phone;
+  late String? _number;
   late String? _email;
 
   @override
   void initState() {
     super.initState();
     _name = widget.contact.name;
-    _phone = widget.contact.number;
+    _number = widget.contact.number;
     _email = widget.contact.email;
   }
 
   void onEdit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-
-      widget.editContact(widget.contact, _name, _phone, _email != "" ? _email : null);
+      debugPrint(_email);
+      widget.editContact(
+          widget.contact, _name, _number, _email != "" ? _email : null);
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Contato atualizado com sucesso!'),
         ),
       );
-      Navigator.pop(context);
+      Navigator.pop(
+          context,
+          Contact(
+              id: widget.contact.id,
+              name: _name,
+              number: _number,
+              email: _email != "" ? _email : null));
     }
   }
 
@@ -77,7 +85,7 @@ class EditContactPageState extends State<EditContactPage> {
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
-                  initialValue: _phone,
+                  initialValue: _number,
                   decoration: const InputDecoration(
                     labelText: 'Telefone',
                     border: OutlineInputBorder(),
@@ -94,7 +102,7 @@ class EditContactPageState extends State<EditContactPage> {
                     return null;
                   },
                   onSaved: (value) {
-                    _phone = value;
+                    _number = value;
                   },
                 ),
                 const SizedBox(height: 16),

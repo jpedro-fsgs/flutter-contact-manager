@@ -2,7 +2,7 @@ import 'package:agenda/models/contact.dart';
 import 'package:agenda/pages/edit_contact_page.dart';
 import 'package:flutter/material.dart';
 
-class ContactPage extends StatelessWidget {
+class ContactPage extends StatefulWidget {
   const ContactPage(
       {super.key,
       required this.removeContact,
@@ -14,6 +14,68 @@ class ContactPage extends StatelessWidget {
   final void Function(int id) removeContact;
 
   final void Function(Contact, String, String?, String?) editContact;
+
+  @override
+  State<ContactPage> createState() => _ContactPageState();
+}
+
+class _ContactPageState extends State<ContactPage> {
+  late Contact _contact;
+
+  @override
+  void initState() {
+    super.initState();
+    _contact = widget.contact;
+  }
+
+  void onEdit() async {
+    //Envia para a página de edição, e recebe um objeto Contato
+    //Caso o Contato não seja nulo, a página é atualizada
+    Contact? updatedContact = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditContactPage(
+          contact: _contact,
+          editContact: widget.editContact,
+        ),
+      ),
+    );
+    if (updatedContact != null) {
+      setState(() {
+        _contact = updatedContact;
+      });
+    }
+  }
+
+  void onRemove() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Excluir ${_contact.name}?"),
+          content: Text(
+              'Deseja excluir permanentemente o contato "${_contact.name}"?'),
+          actions: [
+            TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text("Cancelar")),
+            TextButton(
+                onPressed: () {
+                  widget.removeContact(_contact.id);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Contato "${_contact.name}" excluído!'),
+                    ),
+                  );
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+                child: const Text("Confirmar"))
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,51 +92,9 @@ class ContactPage extends StatelessWidget {
     TextStyle contactInfoSubtitleStyle = TextStyle(
         color: Theme.of(context).colorScheme.secondary, fontSize: 16.0);
 
-    void onEdit() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => EditContactPage(
-            contact: contact,
-            editContact: editContact,
-          ),
-        ),
-      );
-    }
-
-    void onRemove() {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text("Excluir ${contact.name}?"),
-            content: Text(
-                'Deseja excluir permanentemente o contato "${contact.name}"?'),
-            actions: [
-              TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text("Cancelar")),
-              TextButton(
-                  onPressed: () {
-                    removeContact(contact.id);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Contato "${contact.name}" excluído!'),
-                      ),
-                    );
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  },
-                  child: const Text("Confirmar"))
-            ],
-          );
-        },
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(contact.name),
+        title: Text(_contact.name),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           PopupMenuButton(
@@ -106,21 +126,21 @@ class ContactPage extends StatelessWidget {
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 minRadius: 56.0,
                 child: Text(
-                  contact.name[0],
+                  _contact.name[0],
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.primaryContainer,
                       fontSize: 56.0),
                 ),
               ),
               Text(
-                contact.name,
+                _contact.name,
                 style: nameTitleStyle,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
                 height: 16,
               ),
-              contact.number != null
+              _contact.number != null
                   ? ListTile(
                       tileColor: Theme.of(context).colorScheme.surfaceContainer,
                       leading: Icon(
@@ -129,13 +149,13 @@ class ContactPage extends StatelessWidget {
                       ),
                       subtitle: const Text("Número"),
                       subtitleTextStyle: contactInfoSubtitleStyle,
-                      title: Text(contact.number ?? ""),
+                      title: Text(_contact.number ?? ""),
                       titleTextStyle: contactInfoTitleStyle)
                   : const SizedBox.shrink(),
               const SizedBox(
                 height: 5,
               ),
-              contact.email != null
+              _contact.email != null
                   ? ListTile(
                       tileColor: Theme.of(context).colorScheme.surfaceContainer,
                       leading: Icon(
@@ -144,7 +164,7 @@ class ContactPage extends StatelessWidget {
                       ),
                       subtitle: const Text("Email"),
                       subtitleTextStyle: contactInfoSubtitleStyle,
-                      title: Text(contact.email ?? ""),
+                      title: Text(_contact.email ?? ""),
                       titleTextStyle: contactInfoTitleStyle)
                   : const SizedBox.shrink()
             ],

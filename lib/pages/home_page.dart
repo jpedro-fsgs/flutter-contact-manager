@@ -25,6 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void editContact(Contact contact, String name, String? number, String? email) {
     setState(() {
       _databaseService.updateContact(contact.id, name, number, email);
+      
     });
   }
 

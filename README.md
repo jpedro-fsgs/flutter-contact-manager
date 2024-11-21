@@ -51,8 +51,8 @@ Aplicativo para dispositivos móveis utilizando **Flutter** e o banco de dados l
   - [x] Telefone (obrigatório)
   - [x] Email
   - [ ] Imagem de perfil
-- [ ] Criar funcionalidade para **editar contato**:
-  - [ ] Permitir alteração de nome, telefone, email e imagem.
+- [x] Criar funcionalidade para **editar contato**:
+  - [x] Permitir alteração de nome, telefone, email e imagem.
 - [x] Criar funcionalidade para **excluir contato** com confirmação:
   - [x] Modal ou diálogo para confirmar exclusão.
 - [x] Implementar **lista de contatos**:
@@ -65,22 +65,22 @@ Aplicativo para dispositivos móveis utilizando **Flutter** e o banco de dados l
 - [ ] Adicionar imagem ao contato:
   - [ ] Opção de escolher imagem da galeria ou tirar foto.
   - [ ] Exibir uma imagem padrão para contatos sem foto.
-- [ ] Validar campos ao adicionar ou editar contatos:
-  - [ ] Nome e telefone obrigatórios.
-  - [ ] Verificar formato de email válido.
+- [x] Validar campos ao adicionar ou editar contatos:
+  - [x] Nome e telefone obrigatórios.
+  - [x] Verificar formato de email válido.
   - [ ] Tamanho máximo da imagem.
 
 #### **Design e Interface**
 - [ ] Criar layout responsivo para diferentes tamanhos de tela.
 - [ ] Adicionar feedback visual:
-  - [ ] Mensagens de sucesso (ex.: "Contato adicionado com sucesso").
+  - [x] Mensagens de sucesso (ex.: "Contato adicionado com sucesso").
   - [ ] Mensagens de erro (ex.: "Erro ao salvar o contato").
-- [ ] Adicionar ícones para ações (editar, excluir, adicionar).
+- [x] Adicionar ícones para ações (editar, excluir, adicionar).
 
 #### **Tarefas Técnicas**
 - [x] Criar banco de dados local com **sqflite**:
   - [ ] Tabela para armazenar contatos com campos: ID, Nome, Telefone, Email, Imagem, Data de Criação.
-- [ ] Implementar funções CRUD (Create, Read, Update, Delete).
+- [x] Implementar funções CRUD (Create, Read, Update, Delete).
 - [ ] Testar persistência de dados ao reiniciar o app.
 - [ ] Testar performance com uma lista grande de contatos.
 
