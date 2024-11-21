@@ -13,7 +13,7 @@ class ContactPage extends StatefulWidget {
 
   final void Function(int id) removeContact;
 
-  final void Function(Contact, String, String?, String?) editContact;
+  final void Function(Contact, String, String?, String?, String?) editContact;
 
   @override
   State<ContactPage> createState() => _ContactPageState();

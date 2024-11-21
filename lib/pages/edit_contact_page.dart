@@ -9,8 +9,7 @@ class EditContactPage extends StatefulWidget {
   });
 
   final Contact contact;
-  final void Function(
-      Contact contact, String name, String? number, String? email) editContact;
+  final void Function(Contact, String, String?, String?, String?) editContact;
 
   @override
   EditContactPageState createState() => EditContactPageState();
@@ -21,6 +20,7 @@ class EditContactPageState extends State<EditContactPage> {
   late String _name;
   late String? _number;
   late String? _email;
+  late String? _imagePath;
 
   @override
   void initState() {
@@ -33,16 +33,17 @@ class EditContactPageState extends State<EditContactPage> {
   void onEdit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-        widget.editContact(
-            widget.contact, _name, _number, _email != "" ? _email : null);
+      widget.editContact(widget.contact, _name, _number,
+          _email != "" ? _email : null, _imagePath != "" ? _imagePath : null);
 
-        Navigator.pop(
-            context,
-            Contact(
-                id: widget.contact.id,
-                name: _name,
-                number: _number,
-                email: _email != "" ? _email : null));
+      Navigator.pop(
+          context,
+          Contact(
+              id: widget.contact.id,
+              name: _name,
+              number: _number,
+              email: _email != "" ? _email : null,
+              imagePath: _imagePath != "" ? _imagePath : null));
     }
   }
 

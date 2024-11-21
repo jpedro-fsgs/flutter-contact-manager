@@ -31,9 +31,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void addContact(String name, String? number, String? email) async {
+  void addContact(String name, String? number, String? email, String? imagePath) async {
     try {
-      await _databaseService.addContact(name, number, email);
+      await _databaseService.addContact(name, number, email, imagePath);
       setState(() {});
       showInfo('Contato salvo com sucesso!',
           icon: Icons.check_circle, iconColor: Colors.green);
@@ -45,9 +45,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void editContact(
-      Contact contact, String name, String? number, String? email) async {
+      Contact contact, String name, String? number, String? email, String? imagePath) async {
     try {
-      await _databaseService.updateContact(contact.id, name, number, email);
+      await _databaseService.updateContact(contact.id, name, number, email, imagePath);
       setState(() {});
       showInfo('Contato atualizado com sucesso!',
           icon: Icons.check_circle, iconColor: Colors.green);

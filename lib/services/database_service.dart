@@ -11,6 +11,7 @@ class DatabaseService {
   final String _nameColumnName = "name";
   final String _numberColumnName = "number";
   final String _emailColumnName = "email";
+  final String _imagePathColumnName = "image_path";
 
   DatabaseService._constructor();
 
@@ -25,17 +26,26 @@ class DatabaseService {
     final databasePath = join(databaseDirPath, "master_db.db");
     final database = await openDatabase(
       databasePath,
-      version: 1,
+      version: 2,
+      onUpgrade: _upgradeDatabase,
       onCreate: (db, version) async {
         await db.execute('''CREATE TABLE $_contactsTableName (
               $_idColumnName INTEGER PRIMARY KEY AUTOINCREMENT,
               $_nameColumnName TEXT NOT NULL,
               $_numberColumnName TEXT,
-              $_emailColumnName TEXT
+              $_emailColumnName TEXT,
+              $_imagePathColumnName TEXT
               )''');
       },
     );
     return database;
+  }
+
+  Future<void> _upgradeDatabase(
+      Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('ALTER TABLE $_contactsTableName ADD COLUMN imagePath TEXT');
+    }
   }
 
   Future<List<Contact>> getContacts() async {
@@ -46,27 +56,32 @@ class DatabaseService {
             id: contact["id"],
             name: contact["name"],
             number: contact["number"],
-            email: contact["email"]))
+            email: contact["email"],
+            imagePath: contact["imagePath"]))
         .toList();
   }
 
-  Future<void> addContact(String name, String? number, String? email) async {
+  Future<void> addContact(
+      String name, String? number, String? email, String? imagePath) async {
     final db = await database;
     await db.insert(_contactsTableName, {
       _nameColumnName: name,
       _numberColumnName: number,
-      _emailColumnName: email
+      _emailColumnName: email,
+      _imagePathColumnName: imagePath
     });
   }
 
-  Future<void>  updateContact(int id, String name, String? number, String? email) async {
+  Future<void> updateContact(int id, String name, String? number, String? email,
+      String? imagePath) async {
     final db = await database;
     await db.update(
         _contactsTableName,
         {
           _nameColumnName: name,
           _numberColumnName: number,
-          _emailColumnName: email
+          _emailColumnName: email,
+          _imagePathColumnName: imagePath
         },
         where: '$_idColumnName = ?',
         whereArgs: [id]);

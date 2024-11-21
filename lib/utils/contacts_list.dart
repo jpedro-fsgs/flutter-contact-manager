@@ -3,17 +3,25 @@ import 'package:agenda/pages/contact_page.dart';
 import 'package:flutter/material.dart';
 
 class ContactsList extends StatelessWidget {
-  const ContactsList({super.key, required this.getContacts, required this.removeContact, required this.editContact});
+  const ContactsList(
+      {super.key,
+      required this.getContacts,
+      required this.removeContact,
+      required this.editContact});
 
   final Future<List<Contact>> Function() getContacts;
   final void Function(int) removeContact;
-  final void Function(Contact, String, String?, String?) editContact;
+  final void Function(Contact, String, String?, String?, String?) editContact;
 
   void openContactPage(BuildContext context, Contact contact) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ContactPage(contact: contact, removeContact: removeContact, editContact: editContact,),
+        builder: (context) => ContactPage(
+          contact: contact,
+          removeContact: removeContact,
+          editContact: editContact,
+        ),
       ),
     );
   }
@@ -62,10 +70,16 @@ class ContactsList extends StatelessWidget {
                 elevation: 2,
                 child: ListTile(
                   onTap: () => openContactPage(context, contact),
-                  leading: CircleAvatar(
-                    backgroundColor: Theme.of(context).colorScheme.surface,
-                    child: Text(contact.name[0]),
-                  ),
+                  leading: contact.imagePath != null
+                      ? CircleAvatar(
+                          backgroundColor: Theme.of(context).colorScheme.error,
+                          backgroundImage: null,
+                        )
+                      : CircleAvatar(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.surface,
+                          child: Text(contact.name[0]),
+                        ),
                   title: Text(
                     contact.name,
                     style:

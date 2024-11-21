@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AddContactPage extends StatefulWidget {
   const AddContactPage({super.key, required this.addContact});
 
-  final void Function(String name, String? number, String? email) addContact;
+  final void Function(String name, String? number, String? email, String? imagePath) addContact;
 
   @override
   AddContactPageState createState() => AddContactPageState();
@@ -12,14 +12,15 @@ class AddContactPage extends StatefulWidget {
 class AddContactPageState extends State<AddContactPage> {
   final _formKey = GlobalKey<FormState>();
   late String _name;
-  String? _phone;
+  String? _number;
   String? _email;
+  String? _imagePath;
 
   void onAdd() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      widget.addContact(_name, _phone, _email != "" ? _email : null);
+      widget.addContact(_name, _number, _email != "" ? _email : null, _imagePath != "" ? _imagePath : null);
 
       Navigator.pop(context);
     }
@@ -73,7 +74,7 @@ class AddContactPageState extends State<AddContactPage> {
                     return null;
                   },
                   onSaved: (value) {
-                    _phone = value;
+                    _number = value;
                   },
                 ),
                 const SizedBox(height: 16),
