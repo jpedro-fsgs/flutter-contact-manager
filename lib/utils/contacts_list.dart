@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:agenda/models/contact.dart';
 import 'package:agenda/pages/contact_page.dart';
 import 'package:flutter/material.dart';
@@ -70,16 +72,13 @@ class ContactsList extends StatelessWidget {
                 elevation: 2,
                 child: ListTile(
                   onTap: () => openContactPage(context, contact),
-                  leading: contact.imagePath != null
-                      ? CircleAvatar(
-                          backgroundColor: Theme.of(context).colorScheme.error,
-                          backgroundImage: null,
-                        )
-                      : CircleAvatar(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.surface,
-                          child: Text(contact.name[0]),
-                        ),
+                  leading: CircleAvatar(
+                    foregroundImage: contact.imagePath != null
+                        ? FileImage(File(contact.imagePath!))
+                        : null,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    child: Text(contact.name[0]),
+                  ),
                   title: Text(
                     contact.name,
                     style:

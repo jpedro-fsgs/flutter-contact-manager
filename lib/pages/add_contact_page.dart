@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddContactPage extends StatefulWidget {
   const AddContactPage({super.key, required this.addContact});
 
-  final void Function(String name, String? number, String? email, String? imagePath) addContact;
+  final void Function(
+      String name, String? number, String? email, String? imagePath) addContact;
 
   @override
   AddContactPageState createState() => AddContactPageState();
@@ -15,15 +19,35 @@ class AddContactPageState extends State<AddContactPage> {
   String? _number;
   String? _email;
   String? _imagePath;
+  File? _selectedImage;
 
   void onAdd() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      widget.addContact(_name, _number, _email != "" ? _email : null, _imagePath != "" ? _imagePath : null);
+      widget.addContact(
+          _name, _number, _email != "" ? _email : null, _imagePath);
 
       Navigator.pop(context);
     }
+  }
+
+  Future<void> _pickImage() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (returnedImage != null) {
+      setState(() {
+        _selectedImage = File(returnedImage.path);
+        _imagePath = returnedImage.path;
+      });
+    }
+  }
+
+  void _removeImage() {
+    setState(() {
+      _selectedImage = null;
+      _imagePath = null;
+    });
   }
 
   @override
@@ -39,8 +63,35 @@ class AddContactPageState extends State<AddContactPage> {
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                GestureDetector(
+                    onTap: _pickImage,
+                    child: CircleAvatar(
+                      foregroundImage: _selectedImage != null
+                          ? FileImage(_selectedImage!)
+                          : null,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      radius: 84.0,
+                      child: _selectedImage == null
+                          ? Icon(
+                              Icons.add_photo_alternate_rounded,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
+                              size: 84.0,
+                            )
+                          : null,
+                    )),
+                SizedBox(
+                  height: 42.0,
+                  child: _selectedImage != null
+                      ? TextButton(
+                          onPressed: _removeImage,
+                          child: Text("Remover imagem",
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.error)))
+                      : null,
+                ),
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'Nome completo',

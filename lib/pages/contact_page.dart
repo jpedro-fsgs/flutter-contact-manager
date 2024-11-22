@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:agenda/models/contact.dart';
 import 'package:agenda/pages/edit_contact_page.dart';
+import 'package:agenda/utils/image_page.dart';
 import 'package:flutter/material.dart';
 
 class ContactPage extends StatefulWidget {
@@ -62,7 +65,7 @@ class _ContactPageState extends State<ContactPage> {
             TextButton(
                 onPressed: () {
                   widget.removeContact(_contact.id);
-                  
+
                   Navigator.pop(context);
                   Navigator.pop(context);
                 },
@@ -119,14 +122,33 @@ class _ContactPageState extends State<ContactPage> {
                 const SizedBox(
                   height: 16,
                 ),
-                CircleAvatar(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  minRadius: 56.0,
-                  child: Text(
-                    _contact.name[0],
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        fontSize: 56.0),
+                GestureDetector(
+                  onTap: _contact.imagePath != null
+                      ? () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ImagePage(
+                              title: _contact.name,
+                              imageUrl: _contact.imagePath!,
+                            ),
+                          ))
+                      : null,
+                  child: Hero(
+                    tag: _contact.imagePath ?? _contact.id,
+                    child: CircleAvatar(
+                      foregroundImage: _contact.imagePath != null
+                          ? FileImage(File(_contact.imagePath!))
+                          : null,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      radius: 84.0,
+                      child: Text(
+                        _contact.name[0],
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            fontSize: 84.0),
+                      ),
+                    ),
                   ),
                 ),
                 Text(
@@ -139,7 +161,8 @@ class _ContactPageState extends State<ContactPage> {
                 ),
                 _contact.number != null
                     ? ListTile(
-                        tileColor: Theme.of(context).colorScheme.surfaceContainer,
+                        tileColor:
+                            Theme.of(context).colorScheme.surfaceContainer,
                         leading: Icon(
                           Icons.phone,
                           color: primaryColor,
@@ -154,7 +177,8 @@ class _ContactPageState extends State<ContactPage> {
                 ),
                 _contact.email != null
                     ? ListTile(
-                        tileColor: Theme.of(context).colorScheme.surfaceContainer,
+                        tileColor:
+                            Theme.of(context).colorScheme.surfaceContainer,
                         leading: Icon(
                           Icons.email,
                           color: primaryColor,

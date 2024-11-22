@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:agenda/models/contact.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditContactPage extends StatefulWidget {
   const EditContactPage({
@@ -22,12 +25,16 @@ class EditContactPageState extends State<EditContactPage> {
   late String? _email;
   late String? _imagePath;
 
+  late File? _selectedImage;
+
   @override
   void initState() {
     super.initState();
     _name = widget.contact.name;
     _number = widget.contact.number;
     _email = widget.contact.email;
+    _imagePath = widget.contact.imagePath;
+    _selectedImage = _imagePath != null ? File(_imagePath!) : null;
   }
 
   void onEdit() {
@@ -47,6 +54,24 @@ class EditContactPageState extends State<EditContactPage> {
     }
   }
 
+  Future<void> _pickImage() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (returnedImage != null) {
+      setState(() {
+        _selectedImage = File(returnedImage.path);
+        _imagePath = returnedImage.path;
+      });
+    }
+  }
+
+  void _removeImage() {
+    setState(() {
+      _selectedImage = null;
+      _imagePath = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,8 +85,35 @@ class EditContactPageState extends State<EditContactPage> {
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                GestureDetector(
+                    onTap: _pickImage,
+                    child: CircleAvatar(
+                      foregroundImage: _selectedImage != null
+                          ? FileImage(_selectedImage!)
+                          : null,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      radius: 84.0,
+                      child: _selectedImage == null
+                          ? Icon(
+                              Icons.add_photo_alternate_rounded,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
+                              size: 84.0,
+                            )
+                          : null,
+                    )),
+                SizedBox(
+                  height: 42.0,
+                  child: _selectedImage != null
+                      ? TextButton(
+                          onPressed: _removeImage,
+                          child: Text("Remover imagem",
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.error)))
+                      : null,
+                ),
                 TextFormField(
                   initialValue: _name,
                   decoration: const InputDecoration(

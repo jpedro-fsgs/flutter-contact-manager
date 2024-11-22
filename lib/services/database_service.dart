@@ -26,7 +26,7 @@ class DatabaseService {
     final databasePath = join(databaseDirPath, "master_db.db");
     final database = await openDatabase(
       databasePath,
-      version: 2,
+      version: 3,
       onUpgrade: _upgradeDatabase,
       onCreate: (db, version) async {
         await db.execute('''CREATE TABLE $_contactsTableName (
@@ -43,8 +43,8 @@ class DatabaseService {
 
   Future<void> _upgradeDatabase(
       Database db, int oldVersion, int newVersion) async {
-    if (oldVersion < 2) {
-      await db.execute('ALTER TABLE $_contactsTableName ADD COLUMN imagePath TEXT');
+    if (oldVersion < 3) {
+      await db.execute('ALTER TABLE $_contactsTableName ADD COLUMN $_imagePathColumnName TEXT');
     }
   }
 
@@ -57,7 +57,7 @@ class DatabaseService {
             name: contact["name"],
             number: contact["number"],
             email: contact["email"],
-            imagePath: contact["imagePath"]))
+            imagePath: contact["image_path"]))
         .toList();
   }
 
