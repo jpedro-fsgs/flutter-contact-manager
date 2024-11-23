@@ -102,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
       showInfo('Erro ao carregar contatos.',
           icon: Icons.error, iconColor: Colors.red);
     }
+    if(_searchController.text.isNotEmpty) _filterContacts(_searchController.text);
   }
 
   void _filterContacts(String query) {
