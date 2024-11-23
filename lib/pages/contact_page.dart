@@ -129,7 +129,7 @@ class _ContactPageState extends State<ContactPage> {
                           MaterialPageRoute(
                             builder: (context) => ImagePage(
                               title: _contact.name,
-                              imageUrl: _contact.imagePath!,
+                              imagePath: _contact.imagePath!,
                             ),
                           ))
                       : null,
@@ -151,13 +151,10 @@ class _ContactPageState extends State<ContactPage> {
                     ),
                   ),
                 ),
-                Hero(
-                  tag: "${_contact.name}-${_contact.id}",
-                  child: Text(
-                    _contact.name,
-                    style: nameTitleStyle,
-                    textAlign: TextAlign.center,
-                  ),
+                Text(
+                  _contact.name,
+                  style: nameTitleStyle,
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(
                   height: 16,

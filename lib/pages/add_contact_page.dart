@@ -64,6 +64,8 @@ class AddContactPageState extends State<AddContactPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                const SizedBox(
+                  height: 16.0),
                 GestureDetector(
                     onTap: _pickImage,
                     child: CircleAvatar(
@@ -118,7 +120,7 @@ class AddContactPageState extends State<AddContactPage> {
                     if (value == null || value.isEmpty) {
                       return 'O telefone é obrigatório.';
                     }
-                    final phoneRegex = RegExp(r"^\+?[0-9\s\-()]{7,15}$");
+                    final phoneRegex = RegExp(r"^\+?[0-9\s\-()]{7,24}$");
                     if (!phoneRegex.hasMatch(value)) {
                       return 'Insira um telefone válido.';
                     }

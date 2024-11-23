@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ImagePage extends StatelessWidget {
-  final String imageUrl;
+  final String imagePath;
   final String title;
 
-  const ImagePage({super.key, required this.imageUrl, required this.title});
+  const ImagePage({super.key, required this.imagePath, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +19,13 @@ class ImagePage extends StatelessWidget {
       extendBodyBehindAppBar: true,
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Hero(
-        tag: imageUrl,
+        tag: imagePath,
         child: PhotoView(
           backgroundDecoration: const BoxDecoration(color: Colors.transparent),
           maxScale: PhotoViewComputedScale.contained * 4.0,
           minScale: PhotoViewComputedScale.contained,
           strictScale: true,
-          imageProvider: FileImage(File(imageUrl)),
+          imageProvider: FileImage(File(imagePath)),
         ),
       ),
     );

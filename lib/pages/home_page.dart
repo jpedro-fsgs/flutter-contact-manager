@@ -156,6 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   : const Icon(Icons.close))
         ],
       ),
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
       body: _filteredContacts.isNotEmpty
           ? ContactsList(
               contacts: _filteredContacts,
