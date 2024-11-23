@@ -56,12 +56,11 @@ Aplicativo para dispositivos móveis utilizando **Flutter** e o banco de dados l
 - [x] Criar funcionalidade para **excluir contato** com confirmação:
   - [x] Modal ou diálogo para confirmar exclusão.
 - [x] Implementar **lista de contatos**:
-  - [x] Mostrar contatos ordenados por nome (padrão).
-  - [ ] Opção para ordenar por: Nome, Telefone ou Data de Criação.
+  - [x] Mostrar contatos ordenados por nome.
 
 #### **Melhorias de Experiência do Usuário**
 - [ ] Implementar internacionalização.
-- [ ] Implementar busca na lista de contatos (por nome ou telefone).
+- [x] Implementar busca na lista de contatos.
 - [x] Adicionar imagem ao contato:
   - [x] Opção de escolher imagem da galeria.
   - [x] Exibir uma imagem padrão para contatos sem foto.
@@ -82,10 +81,9 @@ Aplicativo para dispositivos móveis utilizando **Flutter** e o banco de dados l
   - [x] Tabela para armazenar contatos com campos: ID, Nome, Telefone, Email, Imagem.
 - [x] Implementar funções CRUD (Create, Read, Update, Delete).
 - [x] Testar persistência de dados ao reiniciar o app.
-- [ ] Testar performance com uma lista grande de contatos.
 
 #### **Testes**
 - [x] Testar funcionalidade de adicionar contato.
 - [x] Testar edição e exclusão de contatos.
-- [ ] Testar ordenação e busca na lista.
+- [x] Testar busca na lista.
 - [x] Testar validação de campos.

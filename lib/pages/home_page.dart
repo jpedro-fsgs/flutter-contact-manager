@@ -16,14 +16,28 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final DatabaseService _databaseService = DatabaseService.instance;
 
-  void showInfo(String mensagem, {IconData? icon, Color? iconColor}) {
+  List<Contact> _contacts = [];
+  List<Contact> _filteredContacts = [];
 
+  bool isSearching = false;
+  String? search;
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadContacts();
+  }
+
+  void showInfo(String mensagem, {IconData? icon, Color? iconColor}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
           children: [
-            icon != null ? Icon(icon, color: iconColor) : const SizedBox.shrink(),
-            const SizedBox(width: 8) ,
+            icon != null
+                ? Icon(icon, color: iconColor)
+                : const SizedBox.shrink(),
+            const SizedBox(width: 8),
             Expanded(child: Text(mensagem)),
           ],
         ),
@@ -31,7 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void addContact(String name, String? number, String? email, String? imagePath) async {
+  void addContact(
+      String name, String? number, String? email, String? imagePath) async {
     try {
       await _databaseService.addContact(name, number, email, imagePath);
       setState(() {});
@@ -42,12 +57,14 @@ class _MyHomePageState extends State<MyHomePage> {
       showInfo('Não foi possível cadastrar o contato.',
           icon: Icons.error, iconColor: Colors.red);
     }
+    _loadContacts();
   }
 
-  void editContact(
-      Contact contact, String name, String? number, String? email, String? imagePath) async {
+  void editContact(Contact contact, String name, String? number, String? email,
+      String? imagePath) async {
     try {
-      await _databaseService.updateContact(contact.id, name, number, email, imagePath);
+      await _databaseService.updateContact(
+          contact.id, name, number, email, imagePath);
       setState(() {});
       showInfo('Contato atualizado com sucesso!',
           icon: Icons.check_circle, iconColor: Colors.green);
@@ -56,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
       showInfo('Não foi possível atualizar o contato.',
           icon: Icons.error, iconColor: Colors.red);
     }
+    _loadContacts();
   }
 
   void removeContact(int id) async {
@@ -68,12 +86,49 @@ class _MyHomePageState extends State<MyHomePage> {
       showInfo('Não foi possível remover o contato.',
           icon: Icons.error, iconColor: Colors.red);
     }
+    _loadContacts();
   }
 
-  Future<List<Contact>> getContacts() async {
-    List<Contact> contacts = await _databaseService.getContacts();
-    contacts.sort((a, b) => a.name.compareTo(b.name));
-    return contacts;
+  Future<void> _loadContacts() async {
+    try {
+      final contacts = await _databaseService.getContacts();
+      contacts.sort((a, b) => a.name.compareTo(b.name));
+      setState(() {
+        _contacts = contacts;
+        _filteredContacts = contacts;
+      });
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      showInfo('Erro ao carregar contatos.',
+          icon: Icons.error, iconColor: Colors.red);
+    }
+  }
+
+  void _filterContacts(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        _filteredContacts = _contacts;
+      });
+      return;
+    }
+    final filtered = _contacts
+        .where((contact) =>
+            contact.name.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+
+    setState(() {
+      _filteredContacts = filtered;
+    });
+  }
+
+  void onSearch() {
+    setState(() {
+      isSearching = !isSearching;
+      if (!isSearching) {
+        _searchController.clear();
+        _filterContacts("");
+      }
+    });
   }
 
   @override
@@ -81,13 +136,38 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: !isSearching
+            ? Text(widget.title)
+            : TextField(
+                controller: _searchController,
+                autofocus: true,
+                decoration: const InputDecoration(
+                  hintText: 'Pesquisar contatos...',
+                  border: InputBorder.none,
+                ),
+                onChanged: (value) => _filterContacts(value),
+              ),
+        actions: [
+          IconButton(
+              onPressed: onSearch,
+              icon: !isSearching
+                  ? const Icon(Icons.search)
+                  : const Icon(Icons.close))
+        ],
       ),
-      body: ContactsList(
-        getContacts: getContacts,
-        editContact: editContact,
-        removeContact: removeContact,
-      ),
+      body: _filteredContacts.isNotEmpty
+          ? ContactsList(
+              contacts: _filteredContacts,
+              editContact: editContact,
+              removeContact: removeContact,
+            )
+          : Center(
+              child: Text(
+              _contacts.isEmpty ? "No contacts added" : "No contacts found",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -100,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         tooltip: 'Add',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

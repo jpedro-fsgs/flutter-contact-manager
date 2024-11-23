@@ -134,7 +134,7 @@ class _ContactPageState extends State<ContactPage> {
                           ))
                       : null,
                   child: Hero(
-                    tag: _contact.imagePath ?? _contact.id,
+                    tag: _contact.imagePath ?? "tag-${_contact.id}",
                     child: CircleAvatar(
                       foregroundImage: _contact.imagePath != null
                           ? FileImage(File(_contact.imagePath!))
@@ -151,10 +151,13 @@ class _ContactPageState extends State<ContactPage> {
                     ),
                   ),
                 ),
-                Text(
-                  _contact.name,
-                  style: nameTitleStyle,
-                  textAlign: TextAlign.center,
+                Hero(
+                  tag: "${_contact.name}-${_contact.id}",
+                  child: Text(
+                    _contact.name,
+                    style: nameTitleStyle,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 const SizedBox(
                   height: 16,
