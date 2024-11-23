@@ -13,6 +13,15 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+String removeNonNumeric(String input) {
+  return input.replaceAll(RegExp(r'[^0-9]'), '');
+}
+
+bool validPhoneNumber(String input) {
+  final phoneRegex = RegExp(r"^\+?[0-9\s\-()]{1,24}$");
+  return phoneRegex.hasMatch(input);
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   final DatabaseService _databaseService = DatabaseService.instance;
 
@@ -102,7 +111,9 @@ class _MyHomePageState extends State<MyHomePage> {
       showInfo('Erro ao carregar contatos.',
           icon: Icons.error, iconColor: Colors.red);
     }
-    if(_searchController.text.isNotEmpty) _filterContacts(_searchController.text);
+    if (_searchController.text.isNotEmpty) {
+      _filterContacts(_searchController.text);
+    }
   }
 
   void _filterContacts(String query) {
@@ -114,7 +125,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     final filtered = _contacts
         .where((contact) =>
-            contact.name.toLowerCase().contains(query.toLowerCase()))
+            contact.name.toLowerCase().contains(query.toLowerCase()) ||
+            (validPhoneNumber(query) &&
+                removeNonNumeric(contact.number!).contains(removeNonNumeric(query))))
         .toList();
 
     setState(() {
