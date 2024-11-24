@@ -10,13 +10,15 @@ class ContactPage extends StatefulWidget {
       {super.key,
       required this.removeContact,
       required this.editContact,
-      required this.contact});
+      required this.contact,
+      required this.makeCall, required this.sendSMS});
 
   final Contact contact;
 
   final void Function(int id) removeContact;
-
   final void Function(Contact, String, String?, String?, String?) editContact;
+  final void Function(String) makeCall;
+  final void Function(String) sendSMS;
 
   @override
   State<ContactPage> createState() => _ContactPageState();
@@ -167,6 +169,10 @@ class _ContactPageState extends State<ContactPage> {
                           Icons.phone,
                           color: primaryColor,
                         ),
+                        trailing: IconButton(
+                            onPressed: () => widget.sendSMS(_contact.number!),
+                            icon: const Icon(Icons.message)),
+                        onTap: () => widget.makeCall(_contact.number!),
                         subtitle: const Text("Número"),
                         subtitleTextStyle: contactInfoSubtitleStyle,
                         title: Text(_contact.number ?? ""),

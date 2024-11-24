@@ -3,6 +3,7 @@ import 'package:agenda/pages/add_contact_page.dart';
 import 'package:agenda/utils/contacts_list.dart';
 import 'package:agenda/services/database_service.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -52,6 +53,26 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  void makeCall(String phoneNumber) async {
+    final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
+    if (await canLaunchUrl(phoneUri)) {
+      await launchUrl(phoneUri);
+    } else {
+      showInfo('Não é possível ligar para este número.',
+          icon: Icons.error, iconColor: Colors.red);
+    }
+  }
+
+  void sendSMS(String phoneNumber) async {
+    final Uri smsUri = Uri(scheme: 'sms', path: phoneNumber);
+    if (await canLaunchUrl(smsUri)) {
+      await launchUrl(smsUri);
+    } else {
+      showInfo('Não é possível enviar SMS para este número.',
+          icon: Icons.error, iconColor: Colors.red);
+    }
   }
 
   void addContact(
@@ -127,7 +148,8 @@ class _MyHomePageState extends State<MyHomePage> {
         .where((contact) =>
             contact.name.toLowerCase().contains(query.toLowerCase()) ||
             (validPhoneNumber(query) &&
-                removeNonNumeric(contact.number!).contains(removeNonNumeric(query))))
+                removeNonNumeric(contact.number!)
+                    .contains(removeNonNumeric(query))))
         .toList();
 
     setState(() {
@@ -175,6 +197,8 @@ class _MyHomePageState extends State<MyHomePage> {
               contacts: _filteredContacts,
               editContact: editContact,
               removeContact: removeContact,
+              makeCall: makeCall,
+              sendSMS: sendSMS,
             )
           : Center(
               child: Text(

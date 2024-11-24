@@ -9,10 +9,13 @@ class ContactsList extends StatelessWidget {
       {super.key,
       required this.contacts,
       required this.removeContact,
-      required this.editContact});
+      required this.editContact,
+      required this.makeCall, required this.sendSMS});
 
   final void Function(int) removeContact;
   final void Function(Contact, String, String?, String?, String?) editContact;
+  final void Function(String) makeCall;
+  final void Function(String) sendSMS;
   final List<Contact> contacts;
 
   void openContactPage(BuildContext context, Contact contact) {
@@ -23,6 +26,8 @@ class ContactsList extends StatelessWidget {
           contact: contact,
           removeContact: removeContact,
           editContact: editContact,
+          makeCall: makeCall,
+          sendSMS: sendSMS,
         ),
       ),
     );
@@ -86,9 +91,7 @@ class ContactsList extends StatelessWidget {
                 Icons.phone,
                 color: Theme.of(context).colorScheme.secondary,
               ),
-              onPressed: () {
-                // Ação para ligar para o contato.
-              },
+              onPressed: () => makeCall(contact.number!),
             ),
             tileColor: Theme.of(context).colorScheme.surface,
             contentPadding:
