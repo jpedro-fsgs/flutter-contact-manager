@@ -48,7 +48,7 @@ class EditContactPageState extends State<EditContactPage> {
           context,
           Contact(
               id: widget.contact.id,
-              name: _name,
+              name: _name.trim(),
               number: _number,
               email: _email != "" ? _email : null,
               imagePath: _imagePath != "" ? _imagePath : null));
@@ -123,7 +123,7 @@ class EditContactPageState extends State<EditContactPage> {
                     border: const OutlineInputBorder(),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return S.fullNameRequired;
                     }
                     return null;
@@ -144,7 +144,7 @@ class EditContactPageState extends State<EditContactPage> {
                     if (value == null || value.isEmpty) {
                       return S.phoneRequired;
                     }
-                    final phoneRegex = RegExp(r"^\+?[0-9\s\-()]{7,15}$");
+                    final phoneRegex = RegExp(r"^\+?[0-9\s\-()]{7,24}$");
                     if (!phoneRegex.hasMatch(value)) {
                       return S.phoneValidate;
                     }

@@ -27,7 +27,7 @@ class AddContactPageState extends State<AddContactPage> {
       _formKey.currentState!.save();
 
       widget.addContact(
-          _name, _number, _email != "" ? _email : null, _imagePath);
+          _name.trim(), _number, _email != "" ? _email : null, _imagePath);
 
       Navigator.pop(context);
     }
@@ -102,7 +102,7 @@ class AddContactPageState extends State<AddContactPage> {
                     border: const OutlineInputBorder(),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return S.fullNameRequired;
                     }
                     return null;

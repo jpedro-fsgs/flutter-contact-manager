@@ -29,7 +29,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Contact> _contacts = [];
   List<Contact> _filteredContacts = [];
-  
 
   bool isSearching = false;
   String? search;
@@ -142,7 +141,8 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     } on Exception catch (e) {
       debugPrint(e.toString());
-      showInfo("Error loading contacts", icon: Icons.error, iconColor: Colors.red);
+      showInfo("Error loading contacts",
+          icon: Icons.error, iconColor: Colors.red);
     }
     if (_searchController.text.isNotEmpty) {
       _filterContacts(_searchController.text);
@@ -179,11 +179,11 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void languagePt(){
+  void languagePt() {
     widget.onChangeLocale(const Locale('pt'));
   }
 
-  void languageEn(){
+  void languageEn() {
     widget.onChangeLocale(const Locale('en'));
   }
 
@@ -195,25 +195,31 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         leading: PopupMenuButton<String>(
-            icon: const Icon(Icons.language),
-            onSelected: (String value) {
-              if (value == 'en') {
-                languageEn(); // Troca para inglês
-              } else if (value == 'pt') {
-                languagePt(); // Troca para português
-              }
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              const PopupMenuItem<String>(
-                value: 'en',
-                child: Text('English'),
+          icon: const Icon(Icons.language),
+          onSelected: (String value) {
+            if (value == 'en') {
+              languageEn(); // Troca para inglês
+            } else if (value == 'pt') {
+              languagePt(); // Troca para português
+            }
+          },
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+            PopupMenuItem<String>(
+              value: 'en',
+              child: ListTile(
+                title: Text(S.english),
+                trailing: S.localeName == 'en' ? const Icon(Icons.check) : null,
               ),
-              const PopupMenuItem<String>(
-                value: 'pt',
-                child: Text('Português'),
+            ),
+            PopupMenuItem<String>(
+              value: 'pt',
+              child: ListTile(
+                title: Text(S.portuguese),
+                trailing: S.localeName == 'pt' ? const Icon(Icons.check) : null,
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
         title: !isSearching
             ? Text(S.contactsList)
             : TextField(
@@ -231,8 +237,6 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: !isSearching
                   ? const Icon(Icons.search)
                   : const Icon(Icons.close)),
-                  // TextButton(onPressed: languagePt, child: const Text("Português")),
-                  // TextButton(onPressed: languageEn, child: const Text("Inglês")),
         ],
       ),
       backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,

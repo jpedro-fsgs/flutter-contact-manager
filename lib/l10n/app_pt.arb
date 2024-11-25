@@ -1,5 +1,13 @@
 {
     "@@locale": "pt",
+    "english": "Inglês",
+    "@english": {
+        "description": "Idioma Inglês"
+    },
+    "portuguese": "Português",
+    "@portuguese": {
+        "description": "Idioma Português"
+    },
     "contactsList": "Lista de Contatos",
     "@contactsList": {
         "description": "Título do aplicativo"
