@@ -68,6 +68,8 @@ Aplicativo para dispositivos móveis utilizando **Flutter** e o banco de dados l
 - [x] Validar campos ao adicionar ou editar contatos:
   - [x] Nome e telefone obrigatórios.
   - [x] Verificar formato de email válido.
+- [x] Botão para Ligação e SMS.
+- [x] Botão para enviar Email.
 
 #### **Design e Interface**
 - [x] Criar layout responsivo para diferentes tamanhos de tela.

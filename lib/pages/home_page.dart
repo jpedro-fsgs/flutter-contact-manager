@@ -75,6 +75,16 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  void sendEmail(String emailAdress) async {
+    final Uri emailUri = Uri(scheme: 'mailto', path: emailAdress);
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri);
+    } else {
+      showInfo('Não é possível enviar Email para este endereço.',
+          icon: Icons.error, iconColor: Colors.red);
+    }
+  }
+
   void addContact(
       String name, String? number, String? email, String? imagePath) async {
     try {
@@ -199,6 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
               removeContact: removeContact,
               makeCall: makeCall,
               sendSMS: sendSMS,
+              sendEmail: sendEmail,
             )
           : Center(
               child: Text(

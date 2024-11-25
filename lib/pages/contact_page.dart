@@ -11,7 +11,9 @@ class ContactPage extends StatefulWidget {
       required this.removeContact,
       required this.editContact,
       required this.contact,
-      required this.makeCall, required this.sendSMS});
+      required this.makeCall,
+      required this.sendSMS,
+      required this.sendEmail});
 
   final Contact contact;
 
@@ -19,6 +21,7 @@ class ContactPage extends StatefulWidget {
   final void Function(Contact, String, String?, String?, String?) editContact;
   final void Function(String) makeCall;
   final void Function(String) sendSMS;
+  final void Function(String) sendEmail;
 
   @override
   State<ContactPage> createState() => _ContactPageState();
@@ -189,6 +192,7 @@ class _ContactPageState extends State<ContactPage> {
                           Icons.email,
                           color: primaryColor,
                         ),
+                        onTap: () => widget.sendEmail(_contact.email!),
                         subtitle: const Text("Email"),
                         subtitleTextStyle: contactInfoSubtitleStyle,
                         title: Text(_contact.email ?? ""),

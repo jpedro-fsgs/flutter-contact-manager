@@ -10,12 +10,15 @@ class ContactsList extends StatelessWidget {
       required this.contacts,
       required this.removeContact,
       required this.editContact,
-      required this.makeCall, required this.sendSMS});
+      required this.makeCall,
+      required this.sendSMS,
+      required this.sendEmail});
 
   final void Function(int) removeContact;
   final void Function(Contact, String, String?, String?, String?) editContact;
   final void Function(String) makeCall;
   final void Function(String) sendSMS;
+  final void Function(String) sendEmail;
   final List<Contact> contacts;
 
   void openContactPage(BuildContext context, Contact contact) {
@@ -28,6 +31,7 @@ class ContactsList extends StatelessWidget {
           editContact: editContact,
           makeCall: makeCall,
           sendSMS: sendSMS,
+          sendEmail: sendEmail,
         ),
       ),
     );
