@@ -4,11 +4,12 @@ import 'package:agenda/utils/contacts_list.dart';
 import 'package:agenda/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.onChangeLocale});
 
-  final String title;
+  final Function(Locale) onChangeLocale;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -28,6 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Contact> _contacts = [];
   List<Contact> _filteredContacts = [];
+  
 
   bool isSearching = false;
   String? search;
@@ -56,80 +58,81 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void makeCall(String phoneNumber) async {
+    final S = AppLocalizations.of(context)!;
     final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
     if (await canLaunchUrl(phoneUri)) {
       await launchUrl(phoneUri);
     } else {
-      showInfo('Não é possível ligar para este número.',
-          icon: Icons.error, iconColor: Colors.red);
+      showInfo(S.phoneCallError, icon: Icons.error, iconColor: Colors.red);
     }
   }
 
   void sendSMS(String phoneNumber) async {
+    final S = AppLocalizations.of(context)!;
     final Uri smsUri = Uri(scheme: 'sms', path: phoneNumber);
     if (await canLaunchUrl(smsUri)) {
       await launchUrl(smsUri);
     } else {
-      showInfo('Não é possível enviar SMS para este número.',
-          icon: Icons.error, iconColor: Colors.red);
+      showInfo(S.smsError, icon: Icons.error, iconColor: Colors.red);
     }
   }
 
   void sendEmail(String emailAdress) async {
+    final S = AppLocalizations.of(context)!;
     final Uri emailUri = Uri(scheme: 'mailto', path: emailAdress);
     if (await canLaunchUrl(emailUri)) {
       await launchUrl(emailUri);
     } else {
-      showInfo('Não é possível enviar Email para este endereço.',
-          icon: Icons.error, iconColor: Colors.red);
+      showInfo(S.emailError, icon: Icons.error, iconColor: Colors.red);
     }
   }
 
   void addContact(
       String name, String? number, String? email, String? imagePath) async {
+    final S = AppLocalizations.of(context)!;
     try {
       await _databaseService.addContact(name, number, email, imagePath);
       setState(() {});
-      showInfo('Contato salvo com sucesso!',
+      showInfo(S.addContactSuccess,
           icon: Icons.check_circle, iconColor: Colors.green);
     } on Exception catch (e) {
       debugPrint(e.toString());
-      showInfo('Não foi possível cadastrar o contato.',
-          icon: Icons.error, iconColor: Colors.red);
+      showInfo(S.addContactError, icon: Icons.error, iconColor: Colors.red);
     }
     _loadContacts();
   }
 
   void editContact(Contact contact, String name, String? number, String? email,
       String? imagePath) async {
+    final S = AppLocalizations.of(context)!;
     try {
       await _databaseService.updateContact(
           contact.id, name, number, email, imagePath);
       setState(() {});
-      showInfo('Contato atualizado com sucesso!',
+      showInfo(S.editContactSuccess,
           icon: Icons.check_circle, iconColor: Colors.green);
     } on Exception catch (e) {
       debugPrint(e.toString());
-      showInfo('Não foi possível atualizar o contato.',
-          icon: Icons.error, iconColor: Colors.red);
+      showInfo(S.editContactError, icon: Icons.error, iconColor: Colors.red);
     }
     _loadContacts();
   }
 
   void removeContact(int id) async {
+    final S = AppLocalizations.of(context)!;
     try {
       await _databaseService.removeContact(id);
       setState(() {});
-      showInfo('Contato removido com sucesso.');
+      showInfo(S.removeContactSuccess);
     } on Exception catch (e) {
       debugPrint(e.toString());
-      showInfo('Não foi possível remover o contato.',
-          icon: Icons.error, iconColor: Colors.red);
+      showInfo(S.removeContactError, icon: Icons.error, iconColor: Colors.red);
     }
     _loadContacts();
   }
 
   Future<void> _loadContacts() async {
+    // final S = AppLocalizations.of(context)!;
     try {
       final contacts = await _databaseService.getContacts();
       contacts.sort((a, b) => a.name.compareTo(b.name));
@@ -139,8 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     } on Exception catch (e) {
       debugPrint(e.toString());
-      showInfo('Erro ao carregar contatos.',
-          icon: Icons.error, iconColor: Colors.red);
+      showInfo("Error loading contacts", icon: Icons.error, iconColor: Colors.red);
     }
     if (_searchController.text.isNotEmpty) {
       _filterContacts(_searchController.text);
@@ -177,18 +179,48 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void languagePt(){
+    widget.onChangeLocale(const Locale('pt'));
+  }
+
+  void languageEn(){
+    widget.onChangeLocale(const Locale('en'));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final S = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        leading: PopupMenuButton<String>(
+            icon: const Icon(Icons.language),
+            onSelected: (String value) {
+              if (value == 'en') {
+                languageEn(); // Troca para inglês
+              } else if (value == 'pt') {
+                languagePt(); // Troca para português
+              }
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(
+                value: 'en',
+                child: Text('English'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'pt',
+                child: Text('Português'),
+              ),
+            ],
+          ),
         title: !isSearching
-            ? Text(widget.title)
+            ? Text(S.contactsList)
             : TextField(
                 controller: _searchController,
                 autofocus: true,
-                decoration: const InputDecoration(
-                  hintText: 'Pesquisar contatos...',
+                decoration: InputDecoration(
+                  hintText: S.searchContacts,
                   border: InputBorder.none,
                 ),
                 onChanged: (value) => _filterContacts(value),
@@ -198,7 +230,9 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: onSearch,
               icon: !isSearching
                   ? const Icon(Icons.search)
-                  : const Icon(Icons.close))
+                  : const Icon(Icons.close)),
+                  // TextButton(onPressed: languagePt, child: const Text("Português")),
+                  // TextButton(onPressed: languageEn, child: const Text("Inglês")),
         ],
       ),
       backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -213,7 +247,7 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           : Center(
               child: Text(
-              _contacts.isEmpty ? "No contacts added" : "No contacts found",
+              _contacts.isEmpty ? S.noContactsAdded : S.noContactsFound,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
               ),
@@ -228,7 +262,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     )),
           );
         },
-        tooltip: 'Add',
+        tooltip: S.addContact,
         child: const Icon(Icons.add),
       ),
     );

@@ -59,7 +59,7 @@ Aplicativo para dispositivos móveis utilizando **Flutter** e o banco de dados l
   - [x] Mostrar contatos ordenados por nome.
 
 #### **Melhorias de Experiência do Usuário**
-- [ ] Implementar internacionalização.
+- [x] Implementar internacionalização.
 - [x] Implementar busca na lista de contatos.
 - [x] Adicionar imagem ao contato:
   - [x] Opção de escolher imagem da galeria.

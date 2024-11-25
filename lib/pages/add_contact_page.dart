@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddContactPage extends StatefulWidget {
   const AddContactPage({super.key, required this.addContact});
@@ -52,9 +53,10 @@ class AddContactPageState extends State<AddContactPage> {
 
   @override
   Widget build(BuildContext context) {
+    final S = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Adicionar Contato'),
+        title: Text(S.addContact),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
@@ -89,19 +91,19 @@ class AddContactPageState extends State<AddContactPage> {
                   child: _selectedImage != null
                       ? TextButton(
                           onPressed: _removeImage,
-                          child: Text("Remover imagem",
+                          child: Text(S.removeImage,
                               style: TextStyle(
                                   color: Theme.of(context).colorScheme.error)))
                       : null,
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Nome completo',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: S.fullName,
+                    border: const OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'O nome é obrigatório.';
+                      return S.fullNameRequired;
                     }
                     return null;
                   },
@@ -111,18 +113,18 @@ class AddContactPageState extends State<AddContactPage> {
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Telefone',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: S.phone,
+                    border: const OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.phone,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'O telefone é obrigatório.';
+                      return S.phoneRequired;
                     }
                     final phoneRegex = RegExp(r"^\+?[0-9\s\-()]{7,24}$");
                     if (!phoneRegex.hasMatch(value)) {
-                      return 'Insira um telefone válido.';
+                      return S.phoneValidate;
                     }
                     return null;
                   },
@@ -132,9 +134,9 @@ class AddContactPageState extends State<AddContactPage> {
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: S.email,
+                    border: const OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
@@ -142,7 +144,7 @@ class AddContactPageState extends State<AddContactPage> {
                       final emailRegex = RegExp(
                           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
                       if (!emailRegex.hasMatch(value)) {
-                        return 'Insira um email válido.';
+                        return S.emailValidate;
                       }
                     }
                     return null;
@@ -157,7 +159,7 @@ class AddContactPageState extends State<AddContactPage> {
                   child: ElevatedButton.icon(
                     onPressed: onAdd,
                     icon: const Icon(Icons.save),
-                    label: const Text('Salvar'),
+                    label: Text(S.save),
                   ),
                 ),
               ],

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:agenda/models/contact.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditContactPage extends StatefulWidget {
   const EditContactPage({
@@ -74,9 +75,10 @@ class EditContactPageState extends State<EditContactPage> {
 
   @override
   Widget build(BuildContext context) {
+    final S = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar Contato'),
+        title: Text(S.editContact),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
@@ -109,20 +111,20 @@ class EditContactPageState extends State<EditContactPage> {
                   child: _selectedImage != null
                       ? TextButton(
                           onPressed: _removeImage,
-                          child: Text("Remover imagem",
+                          child: Text(S.removeImage,
                               style: TextStyle(
                                   color: Theme.of(context).colorScheme.error)))
                       : null,
                 ),
                 TextFormField(
                   initialValue: _name,
-                  decoration: const InputDecoration(
-                    labelText: 'Nome completo',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: S.fullName,
+                    border: const OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'O nome é obrigatório.';
+                      return S.fullNameRequired;
                     }
                     return null;
                   },
@@ -133,18 +135,18 @@ class EditContactPageState extends State<EditContactPage> {
                 const SizedBox(height: 16),
                 TextFormField(
                   initialValue: _number,
-                  decoration: const InputDecoration(
-                    labelText: 'Telefone',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: S.phone,
+                    border: const OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.phone,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'O telefone é obrigatório.';
+                      return S.phoneRequired;
                     }
                     final phoneRegex = RegExp(r"^\+?[0-9\s\-()]{7,15}$");
                     if (!phoneRegex.hasMatch(value)) {
-                      return 'Insira um telefone válido.';
+                      return S.phoneValidate;
                     }
                     return null;
                   },
@@ -155,9 +157,9 @@ class EditContactPageState extends State<EditContactPage> {
                 const SizedBox(height: 16),
                 TextFormField(
                   initialValue: _email,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: S.email,
+                    border: const OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
@@ -165,7 +167,7 @@ class EditContactPageState extends State<EditContactPage> {
                       final emailRegex = RegExp(
                           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
                       if (!emailRegex.hasMatch(value)) {
-                        return 'Insira um email válido.';
+                        return S.emailValidate;
                       }
                     }
                     return null;
@@ -180,7 +182,7 @@ class EditContactPageState extends State<EditContactPage> {
                   child: ElevatedButton.icon(
                     onPressed: onEdit,
                     icon: const Icon(Icons.save),
-                    label: const Text('Atualizar'),
+                    label: Text(S.update),
                   ),
                 ),
               ],

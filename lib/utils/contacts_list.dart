@@ -84,7 +84,7 @@ class ContactsList extends StatelessWidget {
               ),
             ),
             subtitle: Text(
-              contact.number ?? "Sem número",
+              contact.number ?? "-",
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontSize: 14.0,

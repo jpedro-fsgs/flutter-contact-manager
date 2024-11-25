@@ -1,0 +1,155 @@
+{
+    "@@locale": "en",
+    "contactsList": "Contacts List",
+    "@contactsList": {
+        "description": "App Title"
+    },
+    "noContactsAdded": "No contacts added",
+    "@noContactsAdded": {
+        "description": "Message displayed when there are no contacts added."
+    },
+    "noContactsFound": "No contacts found",
+    "@noContactsFound": {
+        "description": "Message displayed when the search returns no results."
+    },
+    "searchContacts": "Search contacts",
+    "@searchContacts": {
+        "description": "Placeholder text for the contact search input field."
+    },
+    "name": "Name",
+    "@name": {
+        "description": "Label for the name input field."
+    },
+    "fullName": "Full Name",
+    "@fullName": {
+        "description": "Label for the full name input field."
+    },
+    "fullNameRequired": "The name is required.",
+    "@fullNameRequired": {
+        "description": "Validation error message for required name field."
+    },
+    "phone": "Phone",
+    "@phone": {
+        "description": "Label for the phone input field."
+    },
+    "phoneRequired": "The phone number is required.",
+    "@phoneRequired": {
+        "description": "Validation error message for required phone field."
+    },
+    "phoneValidate": "Enter a valid phone number.",
+    "@phoneValidate": {
+        "description": "Validation error message for invalid phone number."
+    },
+    "number": "Number",
+    "@number": {
+        "description": "Generic label for a number input field."
+    },
+    "noNumber": "No Number",
+    "@noNumber": {
+        "description": "Message displayed when a contact does not have a phone number."
+    },
+    "email": "Email",
+    "@email": {
+        "description": "Label for the email input field."
+    },
+    "emailValidate": "Enter a valid email address.",
+    "@emailValidate": {
+        "description": "Validation error message for invalid email address."
+    },
+    "edit": "Edit",
+    "@edit": {
+        "description": "Label for the edit action."
+    },
+    "delete": "Delete",
+    "@delete": {
+        "description": "Label for the delete action."
+    },
+    "removeImage": "Remove Image",
+    "@removeImage": {
+        "description": "Label for the action to remove a contact's image."
+    },
+    "update": "Update",
+    "@update": {
+        "description": "Label for the update action."
+    },
+    "save": "Save",
+    "@save": {
+        "description": "Label for the save action."
+    },
+    "addContact": "Add Contact",
+    "@addContact": {
+        "description": "Button label for adding a new contact."
+    },
+    "editContact": "Edit Contact",
+    "@editContact": {
+        "description": "Button label for updating an existing contact."
+    },
+    "phoneCallError": "Unable to call this number.",
+    "@phoneCallError": {
+        "description": "Error message displayed when a phone call cannot be made."
+    },
+    "smsError": "Unable to send SMS to this number.",
+    "@smsError": {
+        "description": "Error message displayed when an SMS cannot be sent."
+    },
+    "emailError": "Unable to send Email to this address.",
+    "@emailError": {
+        "description": "Error message displayed when an email cannot be sent."
+    },
+    "addContactSuccess": "Contact saved successfully!",
+    "@addContactSuccess": {
+        "description": "Success message when a contact is added."
+    },
+    "editContactSuccess": "Contact updated successfully!",
+    "@editContactSuccess": {
+        "description": "Success message when a contact is updated."
+    },
+    "removeContactSuccess": "Contact removed successfully.",
+    "@removeContactSuccess": {
+        "description": "Success message when a contact is removed."
+    },
+    "showContactError": "Cannot load contacts.",
+    "@showContactError": {
+        "description": "Error message when loading contacts."
+    },
+    "addContactError": "Unable to save the contact.",
+    "@addContactError": {
+        "description": "Error message when a contact cannot be added."
+    },
+    "editContactError": "Unable to update the contact.",
+    "@editContactError": {
+        "description": "Error message when a contact cannot be updated."
+    },
+    "removeContactError": "Unable to remove the contact.",
+    "@removeContactError": {
+        "description": "Error message when a contact cannot be removed."
+    },
+    "removeConfirmTitle": "Delete {name}?",
+    "@removeConfirmTitle": {
+        "description": "Confirmation dialog title for removing a contact.",
+        "placeholders": {
+            "name": {
+                "type": "String",
+                "example": "John"
+            }
+        }
+    },
+    "removeConfirmContent": "Do you want to permanently delete the contact \"{name}\"?",
+    "@removeConfirmContent": {
+        "description": "Confirmation dialog content for removing a contact.",
+        "placeholders": {
+            "name": {
+                "type": "String",
+                "example": "John"
+            }
+        }
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Button label for canceling an action."
+    },
+    "confirm": "Confirm",
+    "@confirm": {
+        "description": "Button label for confirming an action."
+    }
+}

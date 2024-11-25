@@ -4,6 +4,7 @@ import 'package:agenda/models/contact.dart';
 import 'package:agenda/pages/edit_contact_page.dart';
 import 'package:agenda/utils/image_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage(
@@ -59,14 +60,14 @@ class _ContactPageState extends State<ContactPage> {
     showDialog(
       context: context,
       builder: (context) {
+        final S = AppLocalizations.of(context)!;
         return AlertDialog(
-          title: Text("Excluir ${_contact.name}?"),
-          content: Text(
-              'Deseja excluir permanentemente o contato "${_contact.name}"?'),
+          title: Text(S.removeConfirmTitle(_contact.name)),
+          content: Text(S.removeConfirmContent(_contact.name)),
           actions: [
             TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text("Cancelar")),
+                child: Text(S.cancel)),
             TextButton(
                 onPressed: () {
                   widget.removeContact(_contact.id);
@@ -74,7 +75,7 @@ class _ContactPageState extends State<ContactPage> {
                   Navigator.pop(context);
                   Navigator.pop(context);
                 },
-                child: const Text("Confirmar"))
+                child: Text(S.confirm))
           ],
         );
       },
@@ -83,6 +84,7 @@ class _ContactPageState extends State<ContactPage> {
 
   @override
   Widget build(BuildContext context) {
+    final S = AppLocalizations.of(context)!;
     Color primaryColor = Theme.of(context).colorScheme.primary;
 
     TextStyle nameTitleStyle = TextStyle(
@@ -105,15 +107,15 @@ class _ContactPageState extends State<ContactPage> {
               itemBuilder: (context) => [
                     PopupMenuItem(
                         onTap: onEdit,
-                        child: const ListTile(
-                          title: Text("Editar"),
-                          leading: Icon(Icons.edit),
+                        child: ListTile(
+                          title: Text(S.edit),
+                          leading: const Icon(Icons.edit),
                         )),
                     PopupMenuItem(
                         onTap: onRemove,
-                        child: const ListTile(
-                          title: Text("Excluir"),
-                          leading: Icon(Icons.delete),
+                        child: ListTile(
+                          title: Text(S.delete),
+                          leading: const Icon(Icons.delete),
                         )),
                   ]),
         ],
@@ -176,7 +178,7 @@ class _ContactPageState extends State<ContactPage> {
                             onPressed: () => widget.sendSMS(_contact.number!),
                             icon: const Icon(Icons.message)),
                         onTap: () => widget.makeCall(_contact.number!),
-                        subtitle: const Text("Número"),
+                        subtitle: Text(S.number),
                         subtitleTextStyle: contactInfoSubtitleStyle,
                         title: Text(_contact.number ?? ""),
                         titleTextStyle: contactInfoTitleStyle)
@@ -193,7 +195,7 @@ class _ContactPageState extends State<ContactPage> {
                           color: primaryColor,
                         ),
                         onTap: () => widget.sendEmail(_contact.email!),
-                        subtitle: const Text("Email"),
+                        subtitle: Text(S.email),
                         subtitleTextStyle: contactInfoSubtitleStyle,
                         title: Text(_contact.email ?? ""),
                         titleTextStyle: contactInfoTitleStyle)

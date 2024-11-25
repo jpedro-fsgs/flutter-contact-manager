@@ -1,0 +1,155 @@
+{
+    "@@locale": "pt",
+    "contactsList": "Lista de Contatos",
+    "@contactsList": {
+        "description": "Título do aplicativo"
+    },
+    "noContactsAdded": "Nenhum contato adicionado",
+    "@noContactsAdded": {
+        "description": "Mensagem exibida quando nenhum contato foi adicionado."
+    },
+    "noContactsFound": "Nenhum contato encontrado",
+    "@noContactsFound": {
+        "description": "Mensagem exibida quando a busca não retorna resultados."
+    },
+    "searchContacts": "Pesquisar contatos",
+    "@searchContacts": {
+        "description": "Texto do placeholder para o campo de busca de contatos."
+    },
+    "name": "Nome",
+    "@name": {
+        "description": "Rótulo para o campo de entrada de nome."
+    },
+    "fullName": "Nome Completo",
+    "@fullName": {
+        "description": "Rótulo para o campo de entrada de nome completo."
+    },
+    "fullNameRequired": "O nome é obrigatório.",
+    "@fullNameRequired": {
+        "description": "Mensagem de erro de validação para o campo de nome obrigatório."
+    },
+    "phone": "Telefone",
+    "@phone": {
+        "description": "Rótulo para o campo de entrada de telefone."
+    },
+    "phoneRequired": "O número de telefone é obrigatório.",
+    "@phoneRequired": {
+        "description": "Mensagem de erro de validação para o campo de telefone obrigatório."
+    },
+    "phoneValidate": "Insira um número de telefone válido.",
+    "@phoneValidate": {
+        "description": "Mensagem de erro de validação para número de telefone inválido."
+    },
+    "number": "Número",
+    "@number": {
+        "description": "Rótulo genérico para um campo de número."
+    },
+    "noNumber": "Sem Número",
+    "@noNumber": {
+        "description": "Mensagem exibida quando um contato não possui número de telefone."
+    },
+    "email": "E-mail",
+    "@email": {
+        "description": "Rótulo para o campo de entrada de e-mail."
+    },
+    "emailValidate": "Insira um endereço de e-mail válido.",
+    "@emailValidate": {
+        "description": "Mensagem de erro de validação para endereço de e-mail inválido."
+    },
+    "edit": "Editar",
+    "@edit": {
+        "description": "Rótulo para a ação de editar."
+    },
+    "delete": "Excluir",
+    "@delete": {
+        "description": "Rótulo para a ação de excluir."
+    },
+    "removeImage": "Remover Imagem",
+    "@removeImage": {
+        "description": "Rótulo para a ação de remover a imagem de um contato."
+    },
+    "update": "Atualizar",
+    "@update": {
+        "description": "Rótulo para a ação de atualizar."
+    },
+    "save": "Salvar",
+    "@save": {
+        "description": "Rótulo para a ação de salvar."
+    },
+    "addContact": "Adicionar Contato",
+    "@addContact": {
+        "description": "Rótulo do botão para adicionar um novo contato."
+    },
+    "editContact": "Editar Contato",
+    "@editContact": {
+        "description": "Rótulo do botão para atualizar um contato existente."
+    },
+    "phoneCallError": "Não é possível ligar para este número.",
+    "@phoneCallError": {
+        "description": "Mensagem de erro exibida quando não é possível realizar uma ligação."
+    },
+    "smsError": "Não é possível enviar SMS para este número.",
+    "@smsError": {
+        "description": "Mensagem de erro exibida quando não é possível enviar um SMS."
+    },
+    "emailError": "Não é possível enviar e-mail para este endereço.",
+    "@emailError": {
+        "description": "Mensagem de erro exibida quando não é possível enviar um e-mail."
+    },
+    "addContactSuccess": "Contato salvo com sucesso!",
+    "@addContactSuccess": {
+        "description": "Mensagem de sucesso ao adicionar um contato."
+    },
+    "editContactSuccess": "Contato atualizado com sucesso!",
+    "@editContactSuccess": {
+        "description": "Mensagem de sucesso ao atualizar um contato."
+    },
+    "removeContactSuccess": "Contato removido com sucesso.",
+    "@removeContactSuccess": {
+        "description": "Mensagem de sucesso ao remover um contato."
+    },
+    "showContactError": "Não foi possível carregar os contatos.",
+    "@showContactError": {
+        "description": "Mensagem de erro quando não é possível carregar os contatos."
+    },
+    "addContactError": "Não foi possível salvar o contato.",
+    "@addContactError": {
+        "description": "Mensagem de erro quando não é possível adicionar um contato."
+    },
+    "editContactError": "Não foi possível atualizar o contato.",
+    "@editContactError": {
+        "description": "Mensagem de erro quando não é possível atualizar um contato."
+    },
+    "removeContactError": "Não foi possível remover o contato.",
+    "@removeContactError": {
+        "description": "Mensagem de erro quando não é possível remover um contato."
+    },
+    "removeConfirmTitle": "Excluir {name}?",
+    "@removeConfirmTitle": {
+        "description": "Título da caixa de diálogo de confirmação para excluir um contato.",
+        "placeholders": {
+            "name": {
+                "type": "String",
+                "example": "João"
+            }
+        }
+    },
+    "removeConfirmContent": "Deseja excluir permanentemente o contato \"{name}\"?",
+    "@removeConfirmContent": {
+        "description": "Conteúdo da caixa de diálogo de confirmação para excluir um contato.",
+        "placeholders": {
+            "name": {
+                "type": "String",
+                "example": "João"
+            }
+        }
+    },
+    "cancel": "Cancelar",
+    "@cancel": {
+        "description": "Rótulo do botão para cancelar uma ação."
+    },
+    "confirm": "Confirmar",
+    "@confirm": {
+        "description": "Rótulo do botão para confirmar uma ação."
+    }
+}
