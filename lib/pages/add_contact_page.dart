@@ -66,8 +66,7 @@ class AddContactPageState extends State<AddContactPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(
-                  height: 16.0),
+                const SizedBox(height: 16.0),
                 GestureDetector(
                     onTap: _pickImage,
                     child: CircleAvatar(
