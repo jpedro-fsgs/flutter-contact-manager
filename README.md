@@ -30,16 +30,70 @@ Aplicativo para dispositivos móveis utilizando **Flutter** e o banco de dados l
 - **Flutter**: Framework de desenvolvimento multiplataforma.
 - **sqflite**: Biblioteca para integração com SQLite em Flutter.
 
-<!-- ## 🎨 Capturas de Tela
+## 🎨 Capturas de Tela
 
-- **Tela de Cadastro**:
-![Tela de Cadastro](screenshots/cadastro.png)
-
-- **Tela de Listagem**:
-![Tela de Listagem](screenshots/listagem.png)
-
-- **Tela de Edição**:
-![Tela de Edição](screenshots/edicao.png) -->
+<table style="table-layout: fixed; width: 100%; text-align: center;">
+  <tr>
+    <td style="width: 33%; vertical-align: top;">
+      <figure>
+        <img src="assets/screenshots/add_contact_page.png" alt="Adicionar Contato" width="200" style="display: block; margin: auto;"/>
+        <figcaption>Adicionar Contato</figcaption>
+      </figure>
+    </td>
+    <td style="width: 33%; vertical-align: top;">
+      <figure>
+        <img src="assets/screenshots/contact_list.png" alt="Lista de Contatos" width="200" style="display: block; margin: auto;"/>
+        <figcaption>Lista de Contatos</figcaption>
+      </figure>
+    </td>
+    <td style="width: 33%; vertical-align: top;">
+      <figure>
+        <img src="assets/screenshots/contact_page.png" alt="Detalhes do Contato" width="200" style="display: block; margin: auto;"/>
+        <figcaption>Detalhes do Contato</figcaption>
+      </figure>
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 33%; vertical-align: top;">
+      <figure>
+        <img src="assets/screenshots/edit_contact_page.png" alt="Editar Contato" width="200" style="display: block; margin: auto;"/>
+        <figcaption>Editar Contato</figcaption>
+      </figure>
+    </td>
+    <td style="width: 33%; vertical-align: top;">
+      <figure>
+        <img src="assets/screenshots/feedback_popup.png" alt="Popup de Feedback" width="200" style="display: block; margin: auto;"/>
+        <figcaption>Popup de Feedback</figcaption>
+      </figure>
+    </td>
+    <td style="width: 33%; vertical-align: top;">
+      <figure>
+        <img src="assets/screenshots/intl.png" alt="Internacionalização" width="200" style="display: block; margin: auto;"/>
+        <figcaption>Internacionalização</figcaption>
+      </figure>
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 33%; vertical-align: top;">
+      <figure>
+        <img src="assets/screenshots/remove_confirmation.png" alt="Confirmação de Remoção" width="200" style="display: block; margin: auto;"/>
+        <figcaption>Confirmação de Remoção</figcaption>
+      </figure>
+    </td>
+    <td style="width: 33%; vertical-align: top;">
+      <figure>
+        <img src="assets/screenshots/search_name.png" alt="Buscar por Nome" width="200" style="display: block; margin: auto;"/>
+        <figcaption>Buscar por Nome</figcaption>
+      </figure>
+    </td>
+    <td style="width: 33%; vertical-align: top;">
+      <figure>
+        <img src="assets/screenshots/search_number.png" alt="Buscar por Número" width="200" style="display: block; margin: auto;"/>
+        <figcaption>Buscar por Número</figcaption>
+      </figure>
+    </td>
+  </tr>
+</table>
 
 ---
 
